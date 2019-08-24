@@ -1,4 +1,4 @@
-language: minimal
+language: c
 script: asdf plugin-test hcloud $TRAVIS_BUILD_DIR 'hcloud version'
 before_script:
   - git clone https://github.com/asdf-vm/asdf.git
