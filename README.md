@@ -1,6 +1,6 @@
 # asdf-hcloud
 
-hcloud plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
+[hcloud](https://github.com/hetznercloud/cli) plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 
 ## Install
 
