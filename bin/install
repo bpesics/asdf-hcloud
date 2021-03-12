@@ -19,7 +19,7 @@ install_hcloud() {
   platform=$(get_platform)
   arch=$(get_arch)
   download_url=$(get_download_url "$platform" "$arch" "$version")
-  download_path="${tmp_download_dir}"/$(get_filename "$platform" "$arch" "$version")
+  download_path="${tmp_download_dir}"/$(get_filename "$platform" "$arch")
 
   echo "Downloading hcloud from ${download_url}"
   curl -Lo "${download_path}" "${download_url}"
@@ -31,10 +31,10 @@ install_hcloud() {
   rm -f "${binary_path}" 2>/dev/null || true
 
   echo "Extracting binary"
-  tar xvf "${download_path}" --strip=1 -C "${tmp_download_dir}"
+  tar xvf "${download_path}" -C "${tmp_download_dir}"
 
   echo "Copy binary"
-  cp "${tmp_download_dir}/bin/hcloud" "${binary_path}"
+  cp "${tmp_download_dir}/hcloud" "${binary_path}"
 
   echo "Cleaning up downloads"
   rm -f "${download_path}"
@@ -64,9 +64,8 @@ get_arch () {
 get_filename() {
   local -r platform=$1
   local -r arch=$2
-  local -r version=$3
 
-  echo "hcloud-${platform}-${arch}-v${version}.tar.gz"
+  echo "hcloud-${platform}-${arch}.tar.gz"
 }
 
 get_download_url() {
@@ -74,7 +73,7 @@ get_download_url() {
   local -r arch=$2
   local -r version=$3
   local filename
-  filename=$(get_filename "$platform" "$arch" "$version")
+  filename=$(get_filename "$platform" "$arch")
 
   echo "https://github.com/hetznercloud/cli/releases/download/v${version}/${filename}"
 }
