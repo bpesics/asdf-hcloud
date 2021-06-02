@@ -41,7 +41,13 @@ install_hcloud() {
 }
 
 get_platform() {
-  uname | tr '[:upper:]' '[:lower:]'
+  local platform="$(uname | tr '[:upper:]' '[:lower:]')"
+
+  case $platform in
+    darwin) platform="macos"; ;;
+  esac
+
+  echo -n $platform
 }
 
 get_arch () {
@@ -64,8 +70,13 @@ get_arch () {
 get_filename() {
   local -r platform=$1
   local -r arch=$2
+  local extension="tar.gz"
 
-  echo "hcloud-${platform}-${arch}.tar.gz"
+  case $platform in
+    macos) extension="zip"; ;;
+  esac
+
+  echo "hcloud-${platform}-${arch}.${extension}"
 }
 
 get_download_url() {
