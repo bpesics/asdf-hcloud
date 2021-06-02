@@ -31,7 +31,11 @@ install_hcloud() {
   rm -f "${binary_path}" 2>/dev/null || true
 
   echo "Extracting binary"
-  tar xvf "${download_path}" -C "${tmp_download_dir}"
+  if [[ $download_path =~ .*tar.gz$ ]]; then
+    tar xvf "${download_path}" -C "${tmp_download_dir}"
+  else
+    unzip "${download_path}" -d "${tmp_download_dir}"
+  fi
 
   echo "Copy binary"
   cp "${tmp_download_dir}/hcloud" "${binary_path}"
